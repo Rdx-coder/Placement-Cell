@@ -1,0 +1,21 @@
+<% if (locals.user) { %>
+  <%- include("./partials/_navbar") -%>
+
+  <div class="container">
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+      <% for (job of jobs) { %>
+        <div class="col">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title"><%= job.company.short_name %></h5>
+              <h6 class="card-subtitle mb-2 text-muted">ID: <%= job.id %></h6>
+              <p class="card-text">Position: <%= job.name %></p>
+              <p class="card-text">Type: <%= job.model_type %></p>
+              <a href="<%= job.refs.landing_page %>" target="_blank" class="btn btn-primary">Apply</a>
+            </div>
+          </div>
+        </div>
+      <% } %>
+    </div>
+  </div>
+<% } %>

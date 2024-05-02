@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title class="text-center">Student Table</title> <!-- Centering the title -->
+  <!-- Bootstrap CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  <% if (locals.user) { %>
+    <% include("../partials/_navbar") %>
+
+    <div class="container">
+      <table class="table table-striped table-hover align-middle mb-0">
+        <thead class="table-light">
+          <tr class="table-primary">
+            <th>Student</th>
+            <th>Phone</th>
+            <th>College</th>
+            <th>Batch</th>
+            <th>Placement</th>
+            <th>Final Scores</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for (student of students) { %>
+            <tr>
+              <td>
+                <div class="d-flex align-items-center">
+                  <div class="ms-3">
+                    <p class="fw-bold mb-1"><%= student.name %></p>
+                    <p class="text-muted mb-0"><%= student.email %></p>
+                  </div>
+                </div>
+              </td>
+              <td><%= student.phone %></td>
+              <td><%= student.college %></td>
+              <td><%= student.batch %></td>
+              <td>
+                <% if (student.placement === "Placed") { %>
+                  <span class="badge bg-success">Placed</span>
+                <% } else { %>
+                  <span class="badge bg-warning">Not Placed</span>
+                <% } %>
+              </td>
+              <td>
+                <div>DSA: <strong><%= student.dsa %></strong></div>
+                <div>WebD: <strong><%= student.webd %></strong></div>
+                <div>Reactjs: <strong><%= student.react %></strong></div>
+              </td>
+              <td>
+                <form method="post" action="/student/remove">
+                  <input name="studentID" value="<%= student._id %>" hidden />
+                  <button type="submit" class="btn btn-danger btn-sm">Remove</button>
+                </form>
+              </td>
+            </tr>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+  <% } %>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
